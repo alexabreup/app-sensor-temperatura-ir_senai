@@ -37,3 +37,12 @@ Navegadores precisam de MQTT sobre WebSocket. Configure o broker para expor uma 
 - Mosquitto WebSocket app: `ws://192.168.1.100:9001`
 
 Enquanto o broker nao estiver acessivel, use o modo `Simulador local` no painel `Conexao IoT`.
+
+## Publicacao no Netlify
+
+O projeto ja esta preparado para deploy estatico no Netlify.
+
+- Build command: `npm run build`
+- Publish directory: `dist`
+
+O arquivo `netlify.toml` tambem inclui um fallback para `index.html`, caso o app seja acessado por uma rota direta.
