@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>G.PANIZ AE25G2 - Hybrid Recipe Programming</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@100..900&amp;family=JetBrains+Mono:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body {
+            font-family: 'Hanken Grotesk', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .industrial-shadow {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        .no-select {
+            user-select: none;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface": "#fff8f7",
+                      "surface-dim": "#f6d2cd",
+                      "tertiary-fixed-dim": "#adc6ff",
+                      "surface-variant": "#ffdad5",
+                      "on-secondary-fixed": "#1a1c1c",
+                      "on-error": "#ffffff",
+                      "surface-tint": "#c0000b",
+                      "on-error-container": "#93000a",
+                      "surface-container-highest": "#ffdad5",
+                      "on-secondary-container": "#5f6161",
+                      "secondary-fixed-dim": "#c6c6c7",
+                      "tertiary-container": "#006ce4",
+                      "surface-container-lowest": "#ffffff",
+                      "tertiary-fixed": "#d8e2ff",
+                      "outline-variant": "#e9bcb6",
+                      "on-primary-fixed": "#410001",
+                      "inverse-on-surface": "#ffedea",
+                      "primary-fixed-dim": "#ffb4aa",
+                      "surface-container-low": "#fff0ee",
+                      "primary-fixed": "#ffdad5",
+                      "secondary-fixed": "#e2e2e2",
+                      "outline": "#936e69",
+                      "tertiary": "#0054b5",
+                      "on-primary": "#ffffff",
+                      "secondary": "#5d5f5f",
+                      "error-container": "#ffdad6",
+                      "on-secondary-fixed-variant": "#454747",
+                      "inverse-primary": "#ffb4aa",
+                      "on-tertiary-fixed": "#001a41",
+                      "on-background": "#2a1614",
+                      "inverse-surface": "#412b28",
+                      "on-tertiary": "#ffffff",
+                      "on-surface-variant": "#5e3f3a",
+                      "on-secondary": "#ffffff",
+                      "on-primary-fixed-variant": "#930006",
+                      "secondary-container": "#dcdddd",
+                      "on-primary-container": "#fff4f2",
+                      "on-surface": "#2a1614",
+                      "background": "#fff8f7",
+                      "surface-container": "#ffe9e6",
+                      "on-tertiary-container": "#f4f5ff",
+                      "primary": "#b40009",
+                      "on-tertiary-fixed-variant": "#004494",
+                      "primary-container": "#e3000f",
+                      "error": "#ba1a1a",
+                      "surface-container-high": "#ffe2de",
+                      "surface-bright": "#fff8f7"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "xl": "32px",
+                      "lg": "24px",
+                      "sm": "8px",
+                      "md": "16px",
+                      "xs": "4px",
+                      "base": "4px",
+                      "container-max": "1440px",
+                      "gutter": "16px",
+                      "touch-target": "44px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Hanken Grotesk"],
+                      "title-md": ["Hanken Grotesk"],
+                      "body-lg": ["Hanken Grotesk"],
+                      "body-md": ["Hanken Grotesk"],
+                      "headline-md": ["Hanken Grotesk"],
+                      "display-lg": ["Hanken Grotesk"],
+                      "data-display": ["JetBrains Mono"],
+                      "label-md": ["JetBrains Mono"]
+              }
+            },
+          },
+        }
+      </script>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col overflow-hidden">
+<!-- TopNavBar -->
+<header class="bg-background text-primary font-headline-sm text-headline-sm w-full h-16 border-b border-outline-variant flex justify-between items-center px-lg z-50">
+<div class="text-headline-md font-display-lg text-primary uppercase tracking-wider">
+            G.PANIZ AE25G2
+        </div>
+<div class="flex items-center gap-md">
+<button class="w-touch-target h-touch-target flex items-center justify-center hover:bg-surface-container-high transition-colors active:scale-95 duration-100 rounded-lg">
+<span class="material-symbols-outlined">wifi</span>
+</button>
+<button class="w-touch-target h-touch-target flex items-center justify-center hover:bg-surface-container-high transition-colors active:scale-95 duration-100 rounded-lg">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<button class="w-touch-target h-touch-target flex items-center justify-center hover:bg-surface-container-high transition-colors active:scale-95 duration-100 rounded-lg">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- SideNavBar -->
+<nav class="bg-surface-container text-primary font-label-caps text-label-caps h-full w-64 hidden md:flex flex-col border-r border-outline-variant fixed left-0 top-16 h-[calc(100vh-64px-48px)] z-40 p-md gap-xs">
+<div class="px-sm py-md mb-md">
+<div class="font-headline-sm text-headline-sm text-primary">Mixer Control</div>
+<div class="text-on-surface-variant font-body-md text-body-md opacity-70">V2.5 Online</div>
+</div>
+<a class="flex items-center gap-md px-md py-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface active:translate-x-1 transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">speed</span>
+<span>Monitoring</span>
+</a>
+<a class="flex items-center gap-md px-md py-lg bg-primary-container text-on-primary-container rounded-lg border-l-4 border-primary active:translate-x-1 transition-all" href="#">
+<span class="material-symbols-outlined">edit_note</span>
+<span>Programming</span>
+</a>
+<a class="flex items-center gap-md px-md py-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface active:translate-x-1 transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">tune</span>
+<span>Modes</span>
+</a>
+<a class="flex items-center gap-md px-md py-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface active:translate-x-1 transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">book_2</span>
+<span>Library</span>
+</a>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-64 p-lg mb-12 overflow-y-auto">
+<div class="max-w-4xl mx-auto space-y-lg">
+<!-- Header & Breadcrumb -->
+<div class="flex items-center justify-between">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Hybrid Recipe Programming</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Set custom timing for industrial mixing cycles</p>
+</div>
+<div class="bg-surface-container-low px-lg py-md rounded-lg border border-outline-variant">
+<span class="font-label-md text-label-md text-on-surface-variant block uppercase">Preset</span>
+<span class="font-title-md text-title-md text-primary">Massa de Pão v1</span>
+</div>
+</div>
+<!-- Programming Interface: Bento Grid Style -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<!-- Speed 1 Control Card -->
+<div class="bg-surface-container-lowest border border-outline-variant p-lg rounded-lg industrial-shadow">
+<div class="flex items-center gap-md mb-lg">
+<div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">filter_1</span>
+</div>
+<div>
+<h2 class="font-title-md text-title-md">1st Speed Time</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Initial hydration phase</p>
+</div>
+</div>
+<div class="flex items-center justify-between gap-md">
+<button class="w-touch-target h-touch-target border-2 border-secondary text-secondary rounded-lg flex items-center justify-center hover:bg-secondary-container active:scale-90 transition-all no-select" onclick="adjust('speed1', -10)">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<div class="flex-1 text-center bg-secondary-container rounded-lg py-md">
+<span class="font-data-display text-display-lg text-on-surface tabular-nums" id="speed1-val">180</span>
+<span class="font-label-md text-label-md text-on-surface-variant ml-xs">SEC</span>
+</div>
+<button class="w-touch-target h-touch-target border-2 border-secondary text-secondary rounded-lg flex items-center justify-center hover:bg-secondary-container active:scale-90 transition-all no-select" onclick="adjust('speed1', 10)">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<div class="mt-lg pt-md border-t border-outline-variant flex justify-between">
+<span class="font-body-md text-body-md text-on-surface-variant">RPM Range</span>
+<span class="font-label-md text-label-md text-on-surface">45 - 60 RPM</span>
+</div>
+</div>
+<!-- Speed 2 Control Card -->
+<div class="bg-surface-container-lowest border border-outline-variant p-lg rounded-lg industrial-shadow">
+<div class="flex items-center gap-md mb-lg">
+<div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">filter_2</span>
+</div>
+<div>
+<h2 class="font-title-md text-title-md">2nd Speed Time</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Gluten development phase</p>
+</div>
+</div>
+<div class="flex items-center justify-between gap-md">
+<button class="w-touch-target h-touch-target border-2 border-secondary text-secondary rounded-lg flex items-center justify-center hover:bg-secondary-container active:scale-90 transition-all no-select" onclick="adjust('speed2', -10)">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<div class="flex-1 text-center bg-secondary-container rounded-lg py-md">
+<span class="font-data-display text-display-lg text-on-surface tabular-nums" id="speed2-val">300</span>
+<span class="font-label-md text-label-md text-on-surface-variant ml-xs">SEC</span>
+</div>
+<button class="w-touch-target h-touch-target border-2 border-secondary text-secondary rounded-lg flex items-center justify-center hover:bg-secondary-container active:scale-90 transition-all no-select" onclick="adjust('speed2', 10)">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<div class="mt-lg pt-md border-t border-outline-variant flex justify-between">
+<span class="font-body-md text-body-md text-on-surface-variant">RPM Range</span>
+<span class="font-label-md text-label-md text-on-surface">90 - 120 RPM</span>
+</div>
+</div>
+<!-- Summary & Action: Wide Bento -->
+<div class="md:col-span-2 bg-white border border-outline-variant p-lg rounded-lg industrial-shadow flex flex-col md:flex-row items-center justify-between gap-lg">
+<div class="flex items-center gap-xl w-full md:w-auto">
+<div class="relative w-24 h-24 flex items-center justify-center">
+<svg class="w-full h-full -rotate-90">
+<circle class="text-secondary-container" cx="48" cy="48" fill="transparent" r="40" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-primary transition-all duration-500" cx="48" cy="48" fill="transparent" r="40" stroke="currentColor" stroke-dasharray="251.2" stroke-dashoffset="62.8" stroke-width="8"></circle>
+</svg>
+<span class="absolute font-data-display text-title-md text-on-surface">75%</span>
+</div>
+<div>
+<span class="font-label-md text-label-md text-on-surface-variant block uppercase">Estimated Total Cycle</span>
+<div class="flex items-baseline gap-xs">
+<span class="font-data-display text-display-lg text-primary" id="total-time">480</span>
+<span class="font-headline-md text-headline-md text-primary">s</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Approx. 8 minutes total mixing time</p>
+</div>
+</div>
+<div class="flex gap-md w-full md:w-auto">
+<button class="flex-1 md:w-40 h-touch-target border-2 border-secondary text-secondary font-title-md text-title-md rounded-lg hover:bg-surface-container-high transition-colors active:scale-95">
+                                CANCELAR
+                            </button>
+<button class="flex-1 md:w-64 h-touch-target bg-primary text-white font-title-md text-title-md rounded-lg hover:brightness-110 shadow-lg active:scale-95 transition-all">
+                                SALVAR
+                            </button>
+</div>
+</div>
+<!-- Safety/Information Module -->
+<div class="md:col-span-2 bg-surface-container-low border border-outline-variant p-md rounded-lg flex items-start gap-md">
+<span class="material-symbols-outlined text-tertiary">info</span>
+<p class="font-body-md text-body-md text-on-surface-variant">
+<strong>Note:</strong> Adjusting these times will automatically recalculate energy consumption estimates for the current batch. All changes are logged for quality assurance. Ensure the motor temperature is below 55°C before starting prolonged cycles.
+                        </p>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest text-tertiary font-label-caps text-label-caps w-full h-12 fixed bottom-0 z-50 border-t-2 border-primary flex justify-between items-center px-lg">
+<div class="flex items-center gap-md">
+<span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
+<span>Real-time Telemetry: 62Hz | Motor Temp: 42°C | System Ready</span>
+</div>
+<div class="hidden md:flex gap-lg">
+<a class="text-on-surface-variant hover:text-tertiary-fixed-dim transition-colors" href="#">Manual</a>
+<a class="text-on-surface-variant hover:text-tertiary-fixed-dim transition-colors" href="#">Support</a>
+<a class="text-on-surface-variant hover:text-tertiary-fixed-dim transition-colors" href="#">Logs</a>
+</div>
+</footer>
+<script>
+        let speed1 = 180;
+        let speed2 = 300;
+
+        function adjust(type, amount) {
+            if (type === 'speed1') {
+                speed1 = Math.max(0, speed1 + amount);
+                document.getElementById('speed1-val').innerText = speed1;
+            } else if (type === 'speed2') {
+                speed2 = Math.max(0, speed2 + amount);
+                document.getElementById('speed2-val').innerText = speed2;
+            }
+            updateTotal();
+        }
+
+        function updateTotal() {
+            const total = speed1 + speed2;
+            document.getElementById('total-time').innerText = total;
+        }
+    </script>
+</body></html>
