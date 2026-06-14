@@ -275,11 +275,18 @@ export function App() {
                   event.preventDefault();
                   openPage(item.page);
                 }}
-              >
-                {item.icon}
-                <span>{item.label}</span>
-              </a>
-            ))}
+                >
+                  {item.icon}
+                  <span>{item.label}</span>
+                </a>
+              ))}
+            <div className="mobile-nav-footer">
+              Desenvolvido por{" "}
+              <a href="https://alexandrepereira.netlify.app/pt/" target="_blank" rel="noreferrer">
+                Alexandre Pereira
+              </a>{" "}
+              para o PRINT5 2026 UniSENAI - SP
+            </div>
           </nav>
         </div>
       </header>
@@ -309,6 +316,13 @@ export function App() {
           <span>Temperatura</span>
           <strong>{latest.temp.toFixed(2)} C</strong>
           <small>{stateLabels[effectiveState]}</small>
+        </div>
+        <div className="sidebar-footer">
+          <span>Desenvolvido por</span>
+          <a href="https://alexandrepereira.netlify.app/pt/" target="_blank" rel="noreferrer">
+            Alexandre Pereira
+          </a>
+          <span>PRINT5 2026 UniSENAI-SP</span>
         </div>
       </aside>
 
