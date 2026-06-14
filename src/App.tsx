@@ -125,6 +125,8 @@ export function App() {
     emergencyCycle,
   } = telemetry;
 
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const toggleMobileMenu = () => setMobileMenuOpen((prev) => !prev);
   const [page, setPage] = useState<Page>(() => pageFromHash());
   const [operationMode, setOperationMode] = useState<OperationMode>("automatic");
   const [events, setEvents] = useState<string[]>(["HMI inicializada em modo simulador/local"]);
@@ -138,6 +140,26 @@ export function App() {
     window.addEventListener("hashchange", syncHash);
     return () => window.removeEventListener("hashchange", syncHash);
   }, []);
+
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [page]);
+
+  useEffect(() => {
+    document.body.classList.toggle("menu-open", mobileMenuOpen);
+    return () => document.body.classList.remove("menu-open");
+  }, [mobileMenuOpen]);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMobileMenuOpen(false);
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [mobileMenuOpen]);
 
   useEffect(() => {
     async function setupDb() {
@@ -215,8 +237,16 @@ export function App() {
     <div className="app-shell">
       <header className="topbar">
         <button className="brand-button" onClick={() => openPage("monitoring")}>
-          <strong>G.PANIZ AE25G2</strong>
-          <span>SENAI IR HMI</span>
+          <img src="/img/UNISENAI.png" alt="UNISENAI" className="brand-logo" />
+          <span className="brand-copy">
+            <strong>G.PANIZ AE25G2</strong>
+            <span>SENAI IR HMI</span>
+          </span>
+        </button>
+        <button className="icon-button mobile-menu-toggle" onClick={toggleMobileMenu} title="Menu" aria-label="Abrir menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+          </svg>
         </button>
         <div className="top-actions">
           <div className={`status-pill ${config.mode}`}>
@@ -226,6 +256,31 @@ export function App() {
           <button className="icon-button" title="Configurar conexao" onClick={() => openPage("monitoring")}>
             <Settings size={20} />
           </button>
+        </div>
+        <div className={`mobile-nav-overlay ${mobileMenuOpen ? "open" : ""}`} aria-hidden={!mobileMenuOpen}>
+          <div className="mobile-nav-backdrop" onClick={() => setMobileMenuOpen(false)} />
+          <nav className={`mobile-nav ${mobileMenuOpen ? "open" : ""}`} aria-label="Navegação principal">
+            <div className="mobile-nav-header">
+              <strong>Menu</strong>
+              <button className="icon-button" onClick={() => setMobileMenuOpen(false)} aria-label="Fechar menu" title="Fechar menu">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            {navItems.map((item) => (
+              <a
+                key={item.page}
+                className={page === item.page ? "active" : ""}
+                href={`#${item.page}`}
+                onClick={(event) => {
+                  event.preventDefault();
+                  openPage(item.page);
+                }}
+              >
+                {item.icon}
+                <span>{item.label}</span>
+              </a>
+            ))}
+          </nav>
         </div>
       </header>
 
@@ -863,36 +918,37 @@ function RecipesPage({
         <div className="card-list">
           <div className="section-title compact"><h2>Biblioteca de receitas</h2></div>
           {recipes.map((recipe) => (
-            <article key={recipe.code} className={`recipe-row ${activeRecipeCode === recipe.code ? "selected" : ""}`} style={{ marginBottom: "12px" }}>
-              <div>
+            <article key={recipe.code} className={`recipe-row ${activeRecipeCode === recipe.code ? "selected" : ""}`}>
+              <div className="recipe-main">
                 <b>{recipe.name}</b>
                 <span>{recipe.code}</span>
               </div>
-              <span>{recipe.minTemp}-{recipe.maxTemp} C</span>
-              <strong>{recipe.criticalTemp} C</strong>
-              
-              <div style={{ display: "flex", gap: "6px", alignItems: "center" }}>
-                <button className="icon-button" title="Editar Receita" onClick={() => handleEditClick(recipe)} style={{ width: "38px", height: "38px", minHeight: "38px", border: "1px solid var(--outline)" }}>
+              <div className="recipe-meta">
+                <span className="recipe-range">{recipe.minTemp}-{recipe.maxTemp} C</span>
+                <strong>{recipe.criticalTemp} C</strong>
+              </div>
+              <div className="recipe-actions">
+                <button className="icon-button recipe-icon-button" title="Editar Receita" onClick={() => handleEditClick(recipe)}>
                   <SlidersHorizontal size={16} />
                 </button>
-                
-                <button className="icon-button" title="Baixar JSON" onClick={() => handleDownloadJson(recipe)} style={{ width: "38px", height: "38px", minHeight: "38px", border: "1px solid var(--outline)" }}>
+
+                <button className="icon-button recipe-icon-button" title="Baixar JSON" onClick={() => handleDownloadJson(recipe)}>
                   <Download size={16} />
                 </button>
 
-                <button className="icon-button" title="Baixar TXT" onClick={() => handleDownloadTxt(recipe)} style={{ width: "38px", height: "38px", minHeight: "38px", border: "1px solid var(--outline)" }}>
+                <button className="icon-button recipe-icon-button" title="Baixar TXT" onClick={() => handleDownloadTxt(recipe)}>
                   <BookOpen size={16} />
                 </button>
 
                 {recipes.length > 1 && (
-                  <button className="icon-button" title="Excluir" onClick={() => {
+                  <button className="icon-button recipe-icon-button danger" title="Excluir" onClick={() => {
                     if (confirm(`Excluir a receita ${recipe.name}?`)) onDeleteRecipe(recipe.code);
-                  }} style={{ width: "38px", height: "38px", minHeight: "38px", borderColor: "var(--danger)", color: "var(--danger)" }}>
+                  }}>
                     <Trash2 size={16} />
                   </button>
                 )}
 
-                <button onClick={() => onSelect(recipe)} style={{ minHeight: "38px", padding: "0 12px", fontSize: "12px", minWidth: "110px" }}>
+                <button className="recipe-select" onClick={() => onSelect(recipe)}>
                   {activeRecipeCode === recipe.code ? <CheckCircle2 size={16} /> : <Play size={16} />}
                   {activeRecipeCode === recipe.code ? " ATIVA" : " CARREGAR"}
                 </button>

@@ -17,11 +17,16 @@ self.addEventListener("activate", (event) => {
 
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
+  const url = new URL(event.request.url);
+  if (url.protocol !== "http:" && url.protocol !== "https:") return;
   event.respondWith(
     fetch(event.request)
       .then((response) => {
+        if (!response || !response.ok || url.origin !== self.location.origin) {
+          return response;
+        }
         const copy = response.clone();
-        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy).catch(() => {}));
         return response;
       })
       .catch(() => caches.match(event.request).then((cached) => cached || caches.match("/"))),
