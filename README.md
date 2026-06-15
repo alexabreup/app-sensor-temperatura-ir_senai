@@ -4,7 +4,7 @@
 
 ### Faculdade de Tecnologia em Eletrônica Industrial
 
-
+<img src="public/img/gpaniz.webp" title="" alt="11697_2025-09-01_16_51_48_0" data-align="inline" width="200">
 
 # SENAI IR HMI - G.Paniz AE25G2
 
@@ -49,3 +49,5 @@ Enquanto o broker nao estiver acessivel, use o modo `Simulador local` no painel 
 ## Documentação
 
 https://github.com/alexabreup/app-sensor-temperatura-ir_senai/wiki
+
+
