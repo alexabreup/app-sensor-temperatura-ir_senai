@@ -1,3 +1,11 @@
+<img src="public/img/UNISENAI.png" alt="Logo UNISENAI" width="300">
+
+### Centro Universitário SENAI Campus Anchieta, Vila Mariana, São Paulo, SP
+
+### Faculdade de Tecnologia em Eletrônica Industrial
+
+
+
 # SENAI IR HMI - G.Paniz AE25G2
 
 Aplicativo hibrido responsivo para desktop, tablets e celulares, baseado no design Stitch SENAI Industrial HMI Dashboard.
